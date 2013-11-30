@@ -38,4 +38,10 @@ describe 'githosting' do
 
     it { should contain_user('git').with_home('/somewhere/else') }
   end
+
+  describe 'creates git repository' do
+    let(:params) { {:repositories => ['foobar']} }
+
+    it { should contain_githosting__repository('foobar').with_ensure('present') }
+  end
 end

@@ -8,4 +8,5 @@ class githosting::params {
   $data_dir = $::operatingsystem ? {
     default => '/var/git'
   }
+  $repositories = []
 }
