@@ -5,6 +5,7 @@
 class githosting::params {
   $git_version = latest
   $service = 'git'
+  $service_shell = '/usr/bin/git-shell'
   $data_dir = $::operatingsystem ? {
     default => '/var/git'
   }

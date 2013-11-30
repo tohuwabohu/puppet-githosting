@@ -14,6 +14,10 @@
 #   The name of the user owning all repositories
 #   default: git
 #
+# [*service_shell*]
+#   Sets the services' shell.
+#   default: /usr/bin/git-shell
+#
 # [*data_dir*]
 #   The directory where all git repositories are stored
 #   default: /var/git
@@ -38,12 +42,14 @@
 class githosting (
   $git_version = params_lookup('git_version'),
   $service = params_lookup('service'),
+  $service_shell = params_lookup('service'),
   $data_dir = params_lookup('data_dir'),
   $authorized_users = params_lookup('authorized_users'),
   $repositories = params_lookup('repositories'),
 ) inherits githosting::params {
   validate_string($git_version)
   validate_string($service)
+  validate_string($service_shell)
   validate_absolute_path($githosting::data_dir)
   validate_array($githosting::authorized_users)
   validate_array($githosting::repositories)
@@ -53,7 +59,7 @@ class githosting (
   user { $githosting::service:
     ensure     => present,
     home       => $githosting::data_dir,
-    shell      => '/usr/bin/git-shell',
+    shell      => $githosting::service_shell,
     managehome => true,
     require    => Package['git'],
   }
