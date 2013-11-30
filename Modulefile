@@ -8,5 +8,5 @@ description ''
 project_page ''
 
 ## Add dependencies, if any:
-dependency 'example42-puppi', '2.x'
-dependency 'puppetlabs-stdlib', '4.x'
+dependency 'example42/puppi', '2.x'
+dependency 'puppetlabs/stdlib', '4.x'
