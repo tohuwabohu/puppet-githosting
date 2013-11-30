@@ -20,5 +20,13 @@
 #
 class githosting {
 
+  package { 'git': ensure => latest }
 
+  user { 'git':
+    ensure     => present,
+    home       => '/var/git',
+    shell      => '/usr/bin/git-shell',
+    managehome => true,
+    require    => Package['git'],
+  }
 }
