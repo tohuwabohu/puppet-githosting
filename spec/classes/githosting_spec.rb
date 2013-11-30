@@ -39,6 +39,17 @@ describe 'githosting' do
     it { should contain_user('git').with_home('/somewhere/else') }
   end
 
+  describe 'grant user access' do
+    let(:params) { {:authorized_users => ['foobar']} }
+    let(:pre_condition) { "ssh_authorized_key { 'foobar':
+      key    => 'my-key',
+      type   => 'ssh-rsa',
+      user   => 'foobar',
+    }" }
+
+    it { should contain_githosting__authorized_user('foobar') }
+  end
+
   describe 'creates git repository' do
     let(:params) { {:repositories => ['foobar']} }
 
