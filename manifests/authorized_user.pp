@@ -8,15 +8,13 @@ define githosting::authorized_user($service, $ensure = present, $username = $nam
   validate_string($username)
 
   $key = getparam(Ssh_authorized_key[$username], 'key')
-  validate_string($key)
-
   $type = getparam(Ssh_authorized_key[$username], 'type')
-  validate_string($type)
 
   ssh_authorized_key { "githosting_${username}":
-    ensure => $ensure,
-    key    => $key,
-    type   => $type,
-    user   => $service,
+    ensure  => $ensure,
+    key     => $key,
+    type    => $type,
+    user    => $service,
+    require => Ssh_authorized_key[$username],
   }
 }
