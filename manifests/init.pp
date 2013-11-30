@@ -42,7 +42,10 @@ class githosting (
   $authorized_users = params_lookup('authorized_users'),
   $repositories = params_lookup('repositories'),
 ) inherits githosting::params {
+  validate_string($git_version)
+  validate_string($service)
   validate_absolute_path($githosting::data_dir)
+  validate_array($githosting::authorized_users)
   validate_array($githosting::repositories)
 
   package { 'git': ensure => $githosting::git_version }
