@@ -6,6 +6,10 @@
 #
 # Document parameters here.
 #
+# [*git_package*]
+#   Sets the name of the package containing the git executable.
+#   default: git
+#
 # [*git_version*]
 #   The version of git to be installed
 #   default: latest
@@ -40,6 +44,7 @@
 # Copyright 2013 Martin Meinhold
 #
 class githosting (
+  $git_package = params_lookup('git_package'),
   $git_version = params_lookup('git_version'),
   $service = params_lookup('service'),
   $service_shell = params_lookup('service'),
@@ -47,6 +52,7 @@ class githosting (
   $authorized_users = params_lookup('authorized_users'),
   $repositories = params_lookup('repositories'),
 ) inherits githosting::params {
+  validate_string($git_package)
   validate_string($git_version)
   validate_string($service)
   validate_string($service_shell)
@@ -54,14 +60,14 @@ class githosting (
   validate_array($githosting::authorized_users)
   validate_array($githosting::repositories)
 
-  package { 'git': ensure => $githosting::git_version }
+  package { $git_package: ensure => $githosting::git_version }
 
   user { $githosting::service:
     ensure     => present,
     home       => $githosting::data_dir,
     shell      => $githosting::service_shell,
     managehome => true,
-    require    => Package['git'],
+    require    => Package[$git_package],
   }
 
   githosting::authorized_user { $authorized_users:
@@ -73,5 +79,6 @@ class githosting (
     ensure   => present,
     service  => $githosting::service,
     data_dir => $githosting::data_dir,
+    require  => Package[$git_package],
   }
 }

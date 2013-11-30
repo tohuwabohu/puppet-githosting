@@ -3,7 +3,13 @@ require 'spec_helper'
 describe 'githosting' do
     let(:title) { 'githosting' }
 
-    describe 'installs latest git by default' do
+  describe 'installs custom git package' do
+    let(:params) { {:git_package => 'git2'} }
+
+    it { should contain_package('git2') }
+  end
+
+  describe 'installs latest git by default' do
       let(:params) { {} }
 
       it { should contain_package('git').with_ensure('latest') }

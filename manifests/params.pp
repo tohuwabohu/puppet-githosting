@@ -3,6 +3,9 @@
 # Default values for the githosting class
 #
 class githosting::params {
+  $git_package = $::operatingssytem ? {
+    default => 'git'
+  }
   $git_version = latest
   $service = 'git'
   $service_shell = '/usr/bin/git-shell'

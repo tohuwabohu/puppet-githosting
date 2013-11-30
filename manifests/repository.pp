@@ -11,6 +11,6 @@ define githosting::repository ($service, $data_dir, $ensure = present) {
     user    => $service,
     command => "/usr/bin/git init --bare ${data_dir}/${name}.git",
     creates => "${data_dir}/${name}.git/HEAD",
-    require => [Package['git'], User[$service]],
+    require => User[$service],
   }
 }
