@@ -2,7 +2,7 @@
 #
 # Creates a user that is allowed to access the git repositories via ssh.
 #
-define githosting::authorized_user( $ensure = present, $service, $username = $name,) {
+define githosting::authorized_user($service, $username = $name, $ensure = present) {
   validate_re($ensure, 'present|absent')
   validate_string($service)
   validate_string($username)
