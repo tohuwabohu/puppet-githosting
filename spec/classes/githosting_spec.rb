@@ -33,6 +33,12 @@ describe 'githosting' do
     it { should contain_user('git').with_ensure('present') }
   end
 
+  describe 'sets git shell' do
+    let(:params) { {} }
+
+    it { should contain_user('git').with_shell('/usr/bin/git-shell') }
+  end
+
   describe 'creates custom user' do
     let(:params) { {:service => 'foobar'} }
 
