@@ -10,10 +10,10 @@ describe 'githosting' do
   end
 
   describe 'installs latest git by default' do
-      let(:params) { {} }
+    let(:params) { {} }
 
-      it { should contain_package('git').with_ensure('latest') }
-    end
+    it { should contain_package('git').with_ensure('latest') }
+  end
 
   describe 'installs custom git version' do
     let(:params) { {:git_version => '1.2.3'} }
