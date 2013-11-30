@@ -7,6 +7,9 @@ class githosting::params {
     default => 'git'
   }
   $git_version = latest
+  $git_executable = $::operatingsystem ? {
+    default => '/usr/bin/git'
+  }
   $service = 'git'
   $service_shell = '/usr/bin/git-shell'
   $data_dir = $::operatingsystem ? {

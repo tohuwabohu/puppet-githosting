@@ -11,11 +11,15 @@
 #   default: git
 #
 # [*git_version*]
-#   The version of git to be installed
+#   The version of git to be installed.
 #   default: latest
 #
+# [*git_executable*]
+#   Sets the path to the git executable.
+#   default: /usr/bin/git
+#
 # [*service*]
-#   The name of the user owning all repositories
+#   The name of the user owning all repositories.
 #   default: git
 #
 # [*service_shell*]
@@ -23,7 +27,7 @@
 #   default: /usr/bin/git-shell
 #
 # [*data_dir*]
-#   The directory where all git repositories are stored
+#   The directory where all git repositories are stored.
 #   default: /var/git
 #
 # [*authorized_users*]
@@ -46,6 +50,7 @@
 class githosting (
   $git_package = params_lookup('git_package'),
   $git_version = params_lookup('git_version'),
+  $git_executable = params_lookup('git_executable'),
   $service = params_lookup('service'),
   $service_shell = params_lookup('service'),
   $data_dir = params_lookup('data_dir'),
@@ -54,6 +59,7 @@ class githosting (
 ) inherits githosting::params {
   validate_string($git_package)
   validate_string($git_version)
+  validate_string($git_executable)
   validate_string($service)
   validate_string($service_shell)
   validate_absolute_path($githosting::data_dir)
@@ -76,9 +82,10 @@ class githosting (
   }
 
   githosting::repository { $githosting::repositories:
-    ensure   => present,
-    service  => $githosting::service,
-    data_dir => $githosting::data_dir,
-    require  => Package[$git_package],
+    ensure         => present,
+    service        => $githosting::service,
+    data_dir       => $githosting::data_dir,
+    git_executable => $githosting::git_executable,
+    require        => Package[$git_package],
   }
 }

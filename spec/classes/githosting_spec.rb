@@ -21,6 +21,12 @@ describe 'githosting' do
     it { should contain_package('git').with_ensure('1.2.3') }
   end
 
+  describe 'uses custom git executable' do
+    let(:params) { {:git_executable => '/somewhere/else/git', :repositories => ['foobar']} }
+
+    it { should contain_githosting__repository('foobar').with_git_executable('/somewhere/else/git') }
+  end
+
   describe 'creates user git by default' do
     let(:params) { {} }
 
