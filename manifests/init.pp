@@ -6,9 +6,17 @@
 #
 # Document parameters here.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*git_version*]
+#   The version of git to be installed
+#   default: latest
+#
+# [*service*]
+#   The name of the user owning all repositories
+#   default: git
+#
+# [*data_dir*]
+#   The directory where all git repositories are stored
+#   default: /var/git
 #
 # === Authors
 #
@@ -18,13 +26,18 @@
 #
 # Copyright 2013 Martin Meinhold
 #
-class githosting {
+class githosting (
+  $git_version = params_lookup('git_version'),
+  $service = params_lookup('service'),
+  $data_dir = params_lookup('data_dir')
+) inherits githosting::params {
+  validate_absolute_path($data_dir)
 
-  package { 'git': ensure => latest }
+  package { 'git': ensure => $githosting::git_version }
 
-  user { 'git':
+  user { $githosting::service:
     ensure     => present,
-    home       => '/var/git',
+    home       => $githosting::data_dir,
     shell      => '/usr/bin/git-shell',
     managehome => true,
     require    => Package['git'],
