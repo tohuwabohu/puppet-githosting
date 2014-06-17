@@ -7,6 +7,9 @@ describe 'githosting' do
     let(:params) { {} }
 
     specify { should contain_package('git').with_ensure('latest') }
+    specify { should contain_user('git').with_ensure('present') }
+    specify { should contain_user('git').with_shell('/usr/bin/git-shell') }
+    specify { should contain_user('git').with_home('/var/git') }
   end
 
   describe 'should install custom git package' do
@@ -27,18 +30,6 @@ describe 'githosting' do
     specify { should contain_githosting__repository('foobar') }
   end
 
-  describe 'creates user git by default' do
-    let(:params) { {} }
-
-    specify { should contain_user('git').with_ensure('present') }
-  end
-
-  describe 'sets git shell' do
-    let(:params) { {} }
-
-    specify { should contain_user('git').with_shell('/usr/bin/git-shell') }
-  end
-
   describe 'creates custom user' do
     let(:params) { {:service_name => 'foobar'} }
 
@@ -49,12 +40,6 @@ describe 'githosting' do
     let(:params) { {:service_uid => 123} }
 
     specify { should contain_user('git').with_uid(123) }
-  end
-
-  describe 'creates home directory by default' do
-    let(:params) { {} }
-
-    specify { should contain_user('git').with_home('/var/git') }
   end
 
   describe 'creates custom home directory' do
