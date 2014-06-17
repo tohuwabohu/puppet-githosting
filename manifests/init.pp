@@ -72,7 +72,7 @@ class githosting (
   }
   validate_absolute_path($git_executable)
   validate_string($service_name)
-  validate_string($service_shell)
+  validate_absolute_path($service_shell)
   validate_absolute_path($githosting::data_dir)
   validate_array($githosting::authorized_users)
   validate_array($githosting::repositories)
