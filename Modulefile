@@ -1,12 +1,11 @@
-name    'MartinMeinhold-githosting'
+name 'tohuwabohu-githosting'
 version '1.0.0'
-source 'git@bitbucket.org:MartinMeinhold/puppet-module-githosting.git'
-project_page 'https://bitbucket.org/MartinMeinhold/puppet-module-githosting'
-author 'MartinMeinhold'
+source 'https://github.com/tohuwabohu/tohuwabohu-githosting.git'
+project_page 'https://github.com/tohuwabohu/tohuwabohu-githosting'
+author 'Martin Meinhold'
 license 'Apache License, Version 2.0'
-summary 'Create and manage git repositories'
+summary 'Manage hosting of git repositories.'
 description ''
 
-## Add dependencies, if any:
 dependency 'example42/puppi', '2.x'
 dependency 'puppetlabs/stdlib', '4.x'
