@@ -10,6 +10,7 @@ describe 'githosting' do
     specify { should contain_user('git').with_ensure('present') }
     specify { should contain_user('git').with_shell('/usr/bin/git-shell') }
     specify { should contain_user('git').with_home('/var/git') }
+    specify { should contain_user('git').with_purge_ssh_keys(true) }
   end
 
   describe 'should install custom git package' do
