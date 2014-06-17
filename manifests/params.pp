@@ -19,7 +19,7 @@ class githosting::params {
     default => '/usr/bin/git'
   }
 
-  $service = 'git'
+  $service_name = 'git'
   $service_shell = '/usr/bin/git-shell'
 
   $data_dir = $::operatingsystem ? {

@@ -18,7 +18,7 @@
 #   Sets the path to the git executable.
 #   default: /usr/bin/git
 #
-# [*service*]
+# [*service_name*]
 #   The name of the user owning all repositories.
 #   default: git
 #
@@ -51,7 +51,7 @@ class githosting (
   $git_package_ensure = params_lookup('git_package_ensure'),
   $git_package_name   = params_lookup('git_package_name'),
   $git_executable     = params_lookup('git_executable'),
-  $service = params_lookup('service'),
+  $service_name       = params_lookup('service_name'),
   $service_shell = params_lookup('service_shell'),
   $data_dir = params_lookup('data_dir'),
   $authorized_users = params_lookup('authorized_users'),
@@ -66,7 +66,7 @@ class githosting (
     fail('Class[Githosting]: git_package_name must not be empty')
   }
   validate_absolute_path($git_executable)
-  validate_string($service)
+  validate_string($service_name)
   validate_string($service_shell)
   validate_absolute_path($githosting::data_dir)
   validate_array($githosting::authorized_users)
@@ -76,7 +76,7 @@ class githosting (
     ensure => $git_package_ensure,
   }
 
-  user { $githosting::service:
+  user { $githosting::service_name:
     ensure     => present,
     home       => $githosting::data_dir,
     shell      => $githosting::service_shell,

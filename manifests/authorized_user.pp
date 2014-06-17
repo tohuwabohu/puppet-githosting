@@ -36,7 +36,7 @@ define githosting::authorized_user($ensure = present, $username = $title) {
     ensure  => $ensure,
     key     => $key,
     type    => $type,
-    user    => $githosting::service,
+    user    => $githosting::service_name,
     require => Ssh_authorized_key[$username],
   }
 }

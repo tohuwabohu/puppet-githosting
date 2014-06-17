@@ -40,7 +40,7 @@ describe 'githosting' do
   end
 
   describe 'creates custom user' do
-    let(:params) { {:service => 'foobar'} }
+    let(:params) { {:service_name => 'foobar'} }
 
     specify { should contain_user('foobar').with_ensure('present') }
   end
