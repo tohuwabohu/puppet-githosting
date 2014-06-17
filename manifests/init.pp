@@ -52,7 +52,6 @@ class githosting (
   $git_package_name   = params_lookup('git_package_name'),
   $git_executable     = params_lookup('git_executable'),
   $service = params_lookup('service'),
-  $service_managehome = params_lookup('service_managehome'),
   $service_shell = params_lookup('service_shell'),
   $data_dir = params_lookup('data_dir'),
   $authorized_users = params_lookup('authorized_users'),
@@ -81,7 +80,7 @@ class githosting (
     ensure     => present,
     home       => $githosting::data_dir,
     shell      => $githosting::service_shell,
-    managehome => $service_managehome,
+    managehome => true,
     require    => Package[$git_package_name],
   }
 
