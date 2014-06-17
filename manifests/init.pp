@@ -89,14 +89,13 @@ class githosting (
   }
 
   user { $githosting::service_name:
-    ensure         => $ensure,
-    uid            => $service_uid,
-    home           => $data_dir,
-    shell          => $service_shell,
-    managehome     => true,
-    purge_ssh_keys => true,
-    system         => true,
-    require        => Package[$git_package_name],
+    ensure     => $ensure,
+    uid        => $service_uid,
+    home       => $data_dir,
+    shell      => $service_shell,
+    managehome => true,
+    system     => true,
+    require    => Package[$git_package_name],
   }
 
   githosting::authorized_user { $authorized_users:
