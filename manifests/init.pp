@@ -28,6 +28,10 @@
 #   The UID of the service user. Useful in combination with backup and restore.
 #   default: undef
 #
+# [*service_gid*]
+#   The GID of the service user. Useful in combination with backup and restore.
+#   default: undef
+#
 # [*service_shell*]
 #   Sets the services' shell.
 #   default: /usr/bin/git-shell
@@ -60,6 +64,7 @@ class githosting (
   $git_executable     = params_lookup('git_executable'),
   $service_name       = params_lookup('service_name'),
   $service_uid        = params_lookup('service_uid'),
+  $service_gid        = params_lookup('service_gid'),
   $service_shell      = params_lookup('service_shell'),
   $data_dir           = params_lookup('data_dir'),
   $authorized_users   = params_lookup('authorized_users'),
@@ -91,6 +96,7 @@ class githosting (
   user { $githosting::service_name:
     ensure     => $ensure,
     uid        => $service_uid,
+    gid        => $service_gid,
     home       => $data_dir,
     shell      => $service_shell,
     managehome => true,

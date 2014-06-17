@@ -23,6 +23,7 @@ class githosting::params {
 
   $service_name = 'git'
   $service_uid = undef
+  $service_gid = undef
   $service_shell = '/usr/bin/git-shell'
 
   $data_dir = $::operatingsystem ? {

@@ -43,6 +43,12 @@ describe 'githosting' do
     specify { should contain_user('git').with_uid(123) }
   end
 
+  describe 'with service_gid => 123' do
+    let(:params) { {:service_gid => 123} }
+
+    specify { should contain_user('git').with_gid(123) }
+  end
+
   describe 'creates custom home directory' do
     let(:params) { {:data_dir => '/somewhere/else'} }
 
