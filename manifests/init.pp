@@ -95,6 +95,7 @@ class githosting (
     shell          => $service_shell,
     managehome     => true,
     purge_ssh_keys => true,
+    system         => true,
     require        => Package[$git_package_name],
   }
 
