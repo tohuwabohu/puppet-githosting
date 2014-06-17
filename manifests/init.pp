@@ -66,12 +66,13 @@ class githosting (
   if empty($git_package_ensure) {
     fail('Class[Githosting]: git_package_ensure must not be empty')
   }
-
   if empty($git_package_name) {
     fail('Class[Githosting]: git_package_name must not be empty')
   }
   validate_absolute_path($git_executable)
-  validate_string($service_name)
+  if empty($service_name) {
+    fail('Class[Githosting]: service_name must not be empty')
+  }
   validate_absolute_path($service_shell)
   validate_absolute_path($githosting::data_dir)
   validate_array($githosting::authorized_users)
