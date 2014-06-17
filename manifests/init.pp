@@ -84,8 +84,8 @@ class githosting (
   user { $githosting::service_name:
     ensure     => present,
     uid        => $service_uid,
-    home       => $githosting::data_dir,
-    shell      => $githosting::service_shell,
+    home       => $data_dir,
+    shell      => $service_shell,
     managehome => true,
     require    => Package[$git_package_name],
   }
