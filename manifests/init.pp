@@ -89,11 +89,5 @@ class githosting (
     service => $githosting::service,
   }
 
-  githosting::repository { $githosting::repositories:
-    ensure         => present,
-    service        => $githosting::service,
-    data_dir       => $githosting::data_dir,
-    git_executable => $githosting::git_executable,
-    require        => Package[$git_package_name],
-  }
+  githosting::repository { $githosting::repositories: }
 }

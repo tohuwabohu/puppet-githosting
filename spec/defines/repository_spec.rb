@@ -2,16 +2,9 @@ require 'spec_helper'
 
 describe 'githosting::repository' do
   let(:title) { 'example' }
+  let(:exec_command) { '/usr/bin/git init --bare /var/git/example.git' }
 
-  describe 'owned by service user' do
-    let(:params) { {:service => 'foobar', :data_dir => '/var/git', :git_executable => ''} }
-
-    it { should contain_exec('git_repository_example').with_user('foobar') }
-  end
-
-  describe 'creates repository in custom location' do
-    let(:params) { {:service => 'foobar', :data_dir => '/somewhere/else', :git_executable => ''} }
-
-    it { should contain_exec('git_repository_example').with_creates('/somewhere/else/example.git/HEAD') }
+  describe 'by default' do
+    it { should contain_exec(exec_command).with_user('git') }
   end
 end

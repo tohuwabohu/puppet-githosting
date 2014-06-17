@@ -10,15 +10,17 @@
 #
 # Copyright 2013 Martin Meinhold, unless otherwise noted.
 #
-define githosting::repository ($service, $data_dir, $git_executable, $ensure = present) {
-  validate_string($service)
-  validate_absolute_path($data_dir)
-  validate_re($ensure, 'present|absent')
+define githosting::repository($repository = $title) {
+  require githosting
 
-  exec { "git_repository_${name}":
-    user    => $service,
-    command => "${git_executable} init --bare ${data_dir}/${name}.git",
-    creates => "${data_dir}/${name}.git/HEAD",
-    require => User[$service],
+  $repository_dir = "${githosting::data_dir}/${repository}.git"
+
+  exec { "${githosting::git_executable} init --bare ${repository_dir}":
+    user    => $githosting::service,
+    creates => "${repository_dir}/HEAD",
+    require => [
+      File[$githosting::data_dir],
+      User[$githosting::service],
+    ],
   }
 }

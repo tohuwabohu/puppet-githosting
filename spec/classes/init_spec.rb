@@ -24,7 +24,7 @@ describe 'githosting' do
   describe 'uses custom git executable' do
     let(:params) { {:git_executable => '/somewhere/else/git', :repositories => ['foobar']} }
 
-    specify { should contain_githosting__repository('foobar').with_git_executable('/somewhere/else/git') }
+    specify { should contain_githosting__repository('foobar') }
   end
 
   describe 'creates user git by default' do
@@ -71,6 +71,6 @@ describe 'githosting' do
   describe 'creates git repository' do
     let(:params) { {:repositories => ['foobar']} }
 
-    specify { should contain_githosting__repository('foobar').with_ensure('present') }
+    specify { should contain_githosting__repository('foobar') }
   end
 end
