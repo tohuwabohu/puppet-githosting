@@ -85,10 +85,7 @@ class githosting (
     require    => Package[$git_package_name],
   }
 
-  githosting::authorized_user { $authorized_users:
-    ensure  => present,
-    service => $githosting::service,
-  }
+  githosting::authorized_user { $authorized_users: }
 
   githosting::repository { $githosting::repositories: }
 }
