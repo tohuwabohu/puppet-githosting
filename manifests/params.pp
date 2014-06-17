@@ -18,9 +18,11 @@ class githosting::params {
   $git_executable = $::operatingsystem ? {
     default => '/usr/bin/git'
   }
+
   $service = 'git'
   $service_managehome = true
   $service_shell = '/usr/bin/git-shell'
+
   $data_dir = $::operatingsystem ? {
     default => '/var/git'
   }

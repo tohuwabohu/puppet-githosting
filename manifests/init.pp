@@ -50,7 +50,7 @@
 class githosting (
   $git_package_ensure = params_lookup('git_package_ensure'),
   $git_package_name   = params_lookup('git_package_name'),
-  $git_executable = params_lookup('git_executable'),
+  $git_executable     = params_lookup('git_executable'),
   $service = params_lookup('service'),
   $service_managehome = params_lookup('service_managehome'),
   $service_shell = params_lookup('service_shell'),
@@ -65,7 +65,7 @@ class githosting (
   if empty($git_package_name) {
     fail("Class[Githosting]: git_package_name must not be empty")
   }
-  validate_string($git_executable)
+  validate_absolute_path($git_executable)
   validate_string($service)
   validate_string($service_shell)
   validate_absolute_path($githosting::data_dir)
