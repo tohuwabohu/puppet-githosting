@@ -57,10 +57,10 @@ class githosting (
   $git_executable     = params_lookup('git_executable'),
   $service_name       = params_lookup('service_name'),
   $service_uid        = params_lookup('service_uid'),
-  $service_shell = params_lookup('service_shell'),
-  $data_dir = params_lookup('data_dir'),
-  $authorized_users = params_lookup('authorized_users'),
-  $repositories = params_lookup('repositories'),
+  $service_shell      = params_lookup('service_shell'),
+  $data_dir           = params_lookup('data_dir'),
+  $authorized_users   = params_lookup('authorized_users'),
+  $repositories       = params_lookup('repositories'),
 ) inherits githosting::params {
 
   if empty($git_package_ensure) {
