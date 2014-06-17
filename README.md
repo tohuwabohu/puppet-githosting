@@ -41,7 +41,7 @@ ssh_authorized_key { "githosting_foobar":
 }
 ```
 
-or use the existing definition assuming there's a `Ssh_Authorized_Key['foobar']` resource existing:
+or use an existing definition (assuming there's a `Ssh_Authorized_Key['foobar']` resource existing):
 
 ```
 githosting::authorized_user { 'foobar': }
