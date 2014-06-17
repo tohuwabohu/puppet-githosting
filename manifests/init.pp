@@ -22,6 +22,10 @@
 #   The name of the user owning all repositories.
 #   default: git
 #
+# [*service_uid*]
+#   The UID of the service user. Useful in combination with backup and restore.
+#   default: undef
+#
 # [*service_shell*]
 #   Sets the services' shell.
 #   default: /usr/bin/git-shell
@@ -52,6 +56,7 @@ class githosting (
   $git_package_name   = params_lookup('git_package_name'),
   $git_executable     = params_lookup('git_executable'),
   $service_name       = params_lookup('service_name'),
+  $service_uid        = params_lookup('service_uid'),
   $service_shell = params_lookup('service_shell'),
   $data_dir = params_lookup('data_dir'),
   $authorized_users = params_lookup('authorized_users'),
@@ -78,6 +83,7 @@ class githosting (
 
   user { $githosting::service_name:
     ensure     => present,
+    uid        => $service_uid,
     home       => $githosting::data_dir,
     shell      => $githosting::service_shell,
     managehome => true,

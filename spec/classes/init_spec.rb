@@ -45,6 +45,12 @@ describe 'githosting' do
     specify { should contain_user('foobar').with_ensure('present') }
   end
 
+  describe 'with service_uid => 123' do
+    let(:params) { {:service_uid => 123} }
+
+    specify { should contain_user('git').with_uid(123) }
+  end
+
   describe 'creates home directory by default' do
     let(:params) { {} }
 
