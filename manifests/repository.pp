@@ -28,10 +28,7 @@ define githosting::repository($repository = $title, $ensure = present) {
     exec { "${githosting::git_executable} init --bare ${repository_dir}":
       user    => $githosting::service_name,
       creates => "${repository_dir}/HEAD",
-      require => [
-        File[$githosting::data_dir],
-        User[$githosting::service_name],
-      ],
+      require => User[$githosting::service_name],
     }
   }
   else {
