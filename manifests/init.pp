@@ -58,6 +58,7 @@ class githosting (
   $authorized_users = params_lookup('authorized_users'),
   $repositories = params_lookup('repositories'),
 ) inherits githosting::params {
+
   if empty($git_package_ensure) {
     fail('Class[Githosting]: git_package_ensure must not be empty')
   }
