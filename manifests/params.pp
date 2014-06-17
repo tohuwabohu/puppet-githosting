@@ -2,6 +2,14 @@
 #
 # Default values for the githosting class
 #
+# === Authors
+#
+# Martin Meinhold <Martin.Meinhold@gmx.de>
+#
+# === Copyright
+#
+# Copyright 2013 Martin Meinhold, unless otherwise noted.
+#
 class githosting::params {
   $git_package = $::operatingssytem ? {
     default => 'git'

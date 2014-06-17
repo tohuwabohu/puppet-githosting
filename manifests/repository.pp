@@ -2,6 +2,14 @@
 #
 # Create a git repository in the service's data directory.
 #
+# === Authors
+#
+# Martin Meinhold <Martin.Meinhold@gmx.de>
+#
+# === Copyright
+#
+# Copyright 2013 Martin Meinhold, unless otherwise noted.
+#
 define githosting::repository ($service, $data_dir, $git_executable, $ensure = present) {
   validate_string($service)
   validate_absolute_path($data_dir)
