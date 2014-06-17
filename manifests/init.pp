@@ -6,12 +6,12 @@
 #
 # Document parameters here.
 #
-# [*git_package*]
+# [*git_package_name*]
 #   Sets the name of the package containing the git executable.
 #   default: git
 #
-# [*git_version*]
-#   The version of git to be installed.
+# [*git_package_ensure*]
+#   The state the git package should be in.
 #   default: latest
 #
 # [*git_executable*]
