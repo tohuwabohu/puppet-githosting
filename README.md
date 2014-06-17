@@ -17,6 +17,36 @@ class { 'githosting':
 }
 ```
 
+Alternatively, you can create more repositories via:
+
+```
+githosting::repository { 'repo1': }
+```
+
+or even drop an existing on:
+
+```
+githosting::repository { 'attic':
+  ensure => absent,
+}
+```
+
+To authorize a user to access the system, simply use a snippet like
+
+```
+ssh_authorized_key { "githosting_foobar":
+  key  => '<key goes here>',
+  type => 'ssh-rsa',
+  user => $githosting::service,
+}
+```
+
+or use the existing definition assuming there's a `Ssh_Authorized_Key['foobar']` resource existing:
+
+```
+githosting::authorized_user { 'foobar': }
+```
+
 ##Limitations
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
