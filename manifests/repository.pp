@@ -15,17 +15,32 @@
 #
 # Copyright 2013 Martin Meinhold, unless otherwise noted.
 #
-define githosting::repository($repository = $title) {
+define githosting::repository($repository = $title, $ensure = present) {
+  if $ensure !~ /^present|absent$/ {
+    fail("Githosting::Repository[${title}]: ensure must be either present or absent, got '${ensure}'")
+  }
+
   require githosting
 
   $repository_dir = "${githosting::data_dir}/${repository}.git"
 
-  exec { "${githosting::git_executable} init --bare ${repository_dir}":
-    user    => $githosting::service,
-    creates => "${repository_dir}/HEAD",
-    require => [
-      File[$githosting::data_dir],
-      User[$githosting::service],
-    ],
+  if $ensure == present {
+    exec { "${githosting::git_executable} init --bare ${repository_dir}":
+      user    => $githosting::service,
+      creates => "${repository_dir}/HEAD",
+      require => [
+        File[$githosting::data_dir],
+        User[$githosting::service],
+      ],
+    }
+  }
+  else {
+    file { $repository_dir:
+      ensure  => absent,
+      backup  => false,
+      recurse => true,
+      purge   => true,
+      force   => true,
+    }
   }
 }

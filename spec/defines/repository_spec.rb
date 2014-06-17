@@ -5,6 +5,13 @@ describe 'githosting::repository' do
   let(:exec_command) { '/usr/bin/git init --bare /var/git/example.git' }
 
   describe 'by default' do
-    it { should contain_exec(exec_command).with_user('git') }
+    specify { should contain_exec(exec_command).with_user('git') }
+  end
+
+  describe 'with ensure => absent' do
+    let(:params) { {:ensure => 'absent'} }
+
+    specify { should_not contain_exec(exec_command) }
+    specify { should contain_file('/var/git/example.git').with_ensure('absent') }
   end
 end
