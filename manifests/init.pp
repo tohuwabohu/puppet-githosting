@@ -64,7 +64,7 @@ class githosting (
   }
 
   if empty($git_package_name) {
-    fail("Class[Githosting]: git_package_name must not be empty")
+    fail('Class[Githosting]: git_package_name must not be empty')
   }
   validate_absolute_path($git_executable)
   validate_string($service)
