@@ -11,10 +11,22 @@ describe 'githosting::authorized_user' do
       user   => 'foobar',
     }" }
 
-    it { should contain_ssh_authorized_key('githosting_foobar').with_user('git').with_key('my-key') }
+    specify { should contain_ssh_authorized_key('githosting_foobar').with(
+        'ensure' => 'present',
+        'user'   => 'git',
+        'key'    => 'my-key',
+        'type'   => 'ssh-rsa'
+      )
+    }
   end
 
-  describe 'allows to override the username' do
+  describe 'should add ssh key' do
+    let(:params) { {:ensure => 'absent'} }
+
+    specify { should contain_ssh_authorized_key('githosting_foobar').with_ensure('absent') }
+  end
+
+  describe 'should support custom username' do
     let(:params) { {:username => 'custom-user'} }
     let(:pre_condition) { "ssh_authorized_key { 'custom-user':
       key    => 'another-key',
@@ -22,6 +34,6 @@ describe 'githosting::authorized_user' do
       user   => 'foobar',
     }" }
 
-    it { should contain_ssh_authorized_key('githosting_custom-user').with_key('another-key') }
+    specify { should contain_ssh_authorized_key('githosting_custom-user').with_key('another-key') }
   end
 end
