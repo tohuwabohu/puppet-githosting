@@ -48,8 +48,8 @@
 # Copyright 2013 Martin Meinhold
 #
 class githosting (
-  $git_package = params_lookup('git_package'),
-  $git_version = params_lookup('git_version'),
+  $git_package_ensure = params_lookup('git_package_ensure'),
+  $git_package_name   = params_lookup('git_package_name'),
   $git_executable = params_lookup('git_executable'),
   $service = params_lookup('service'),
   $service_managehome = params_lookup('service_managehome'),
@@ -58,8 +58,13 @@ class githosting (
   $authorized_users = params_lookup('authorized_users'),
   $repositories = params_lookup('repositories'),
 ) inherits githosting::params {
-  validate_string($git_package)
-  validate_string($git_version)
+  if empty($git_package_ensure) {
+    fail('Class[Githosting]: git_package_ensure must not be empty')
+  }
+
+  if empty($git_package_name) {
+    fail("Class[Githosting]: git_package_name must not be empty")
+  }
   validate_string($git_executable)
   validate_string($service)
   validate_string($service_shell)
@@ -67,7 +72,9 @@ class githosting (
   validate_array($githosting::authorized_users)
   validate_array($githosting::repositories)
 
-  package { $git_package: ensure => $githosting::git_version }
+  package { $git_package_name:
+    ensure => $git_package_ensure,
+  }
 
   user { $githosting::service:
     ensure     => present,

@@ -11,10 +11,10 @@
 # Copyright 2013 Martin Meinhold, unless otherwise noted.
 #
 class githosting::params {
-  $git_package = $::operatingssytem ? {
+  $git_package_ensure = latest
+  $git_package_name = $::operatingssytem ? {
     default => 'git'
   }
-  $git_version = latest
   $git_executable = $::operatingsystem ? {
     default => '/usr/bin/git'
   }
