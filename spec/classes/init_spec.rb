@@ -46,7 +46,6 @@ describe 'githosting' do
   describe 'with service_gid => 123' do
     let(:params) { {:service_gid => 123} }
 
-    specify { should contain_group('git').with_gid(123) }
     specify { should contain_user('git').with_gid(123) }
   end
 
