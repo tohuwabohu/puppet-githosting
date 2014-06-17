@@ -93,7 +93,7 @@ class githosting (
     ensure => $git_package_ensure,
   }
 
-  if !empty($service_gid) {
+  if $service_gid != undef {
     group { $service_name:
       ensure  => $ensure,
       gid     => $service_gid,
