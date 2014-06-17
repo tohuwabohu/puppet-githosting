@@ -64,4 +64,12 @@ describe 'githosting' do
 
     specify { should contain_githosting__repository('foobar') }
   end
+
+  describe 'with ensure => absent' do
+    let(:params) { {:ensure => 'absent', :authorized_users => ['foobar'], :repositories => ['foobar']} }
+
+    specify { should contain_user('git').with_ensure('absent') }
+    specify { should contain_githosting__authorized_user('foobar').with_ensure('absent') }
+    specify { should contain_githosting__repository('foobar').with_ensure('absent') }
+  end
 end

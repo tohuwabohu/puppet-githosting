@@ -4,7 +4,9 @@
 #
 # === Parameters
 #
-# Document parameters here.
+# [*ensure*]
+#   The state the githosting should be in: either present or absent. Absent will remove any existing data.
+#   default: present
 #
 # [*git_package_name*]
 #   Sets the name of the package containing the git executable.
@@ -52,6 +54,7 @@
 # Copyright 2013 Martin Meinhold
 #
 class githosting (
+  $ensure             = params_lookup('ensure'),
   $git_package_ensure = params_lookup('git_package_ensure'),
   $git_package_name   = params_lookup('git_package_name'),
   $git_executable     = params_lookup('git_executable'),
@@ -63,6 +66,9 @@ class githosting (
   $repositories       = params_lookup('repositories'),
 ) inherits githosting::params {
 
+  if $ensure !~ /^present|absent$/ {
+    fail("Class[Githosting]: ensure must be either present or absent, got '${ensure}'")
+  }
   if empty($git_package_ensure) {
     fail('Class[Githosting]: git_package_ensure must not be empty')
   }
@@ -83,7 +89,7 @@ class githosting (
   }
 
   user { $githosting::service_name:
-    ensure     => present,
+    ensure     => $ensure,
     uid        => $service_uid,
     home       => $data_dir,
     shell      => $service_shell,
@@ -91,7 +97,11 @@ class githosting (
     require    => Package[$git_package_name],
   }
 
-  githosting::authorized_user { $authorized_users: }
+  githosting::authorized_user { $authorized_users:
+    ensure => $ensure,
+  }
 
-  githosting::repository { $githosting::repositories: }
+  githosting::repository { $githosting::repositories:
+    ensure => $ensure,
+  }
 }

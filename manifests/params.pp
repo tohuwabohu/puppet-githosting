@@ -11,6 +11,8 @@
 # Copyright 2013 Martin Meinhold, unless otherwise noted.
 #
 class githosting::params {
+  $ensure = present
+
   $git_package_ensure = latest
   $git_package_name = $::operatingssytem ? {
     default => 'git'
