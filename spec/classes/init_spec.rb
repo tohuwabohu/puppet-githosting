@@ -27,7 +27,7 @@ describe 'githosting' do
   describe 'uses custom git executable' do
     let(:params) { {:git_executable => '/somewhere/else/git', :repositories => ['foobar']} }
 
-    specify { should contain_githosting__repository('foobar') }
+    specify { should contain_exec('/somewhere/else/git init --bare /var/git/foobar.git') }
   end
 
   describe 'creates custom user' do
