@@ -2,6 +2,11 @@
 #
 # Create a git repository in the service's data directory.
 #
+# === Parameters
+#
+# [*repository*]
+#   Sets the name of the repository to be created.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
