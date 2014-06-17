@@ -20,7 +20,7 @@ define githosting::repository($repository = $title, $ensure = present) {
     fail("Githosting::Repository[${title}]: ensure must be either present or absent, got '${ensure}'")
   }
 
-  require githosting
+  include githosting
 
   $repository_dir = "${githosting::data_dir}/${repository}.git"
 
