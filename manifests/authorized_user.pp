@@ -20,8 +20,12 @@
 # Copyright 2013 Martin Meinhold, unless otherwise noted.
 #
 define githosting::authorized_user($ensure = present, $username = $title) {
-  validate_re($ensure, 'present|absent')
-  validate_string($username)
+  if $ensure !~ /^present|absent$/ {
+    fail("Githosting::Authorized_User[${title}]: ensure must be either present or absent, got '${ensure}'")
+  }
+  if empty($username) {
+    fail("Githosting::Authorized_User[${title}]: username must not be empty")
+  }
 
   include githosting
 
