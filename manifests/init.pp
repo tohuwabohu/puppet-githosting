@@ -81,7 +81,7 @@ class githosting (
     home       => $githosting::data_dir,
     shell      => $githosting::service_shell,
     managehome => $service_managehome,
-    require    => Package[$git_package],
+    require    => Package[$git_package_name],
   }
 
   githosting::authorized_user { $authorized_users:
