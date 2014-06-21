@@ -111,4 +111,6 @@ class githosting (
   githosting::repository { $githosting::repositories:
     ensure => $ensure,
   }
+
+  Githosting::Authorized_user <| |> -> Githosting::Repository <| |>
 }
