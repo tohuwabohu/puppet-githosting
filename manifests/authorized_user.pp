@@ -6,10 +6,18 @@
 # === Parameters
 #
 # [*ensure*]
-#   Sets the state the user authorization should be in: either present or absent.
+#   Set the state the user authorization should be in: either present or absent.
 #
 # [*username*]
-#   Sets the name of the user who should be allowed to access the repository.
+#   Set the name of the user who should be allowed to access the repository.
+#
+# [*key*]
+#   Set the public key to be used to authenticate the referenced user; if not specified, the key will be looked up from
+#   the `ssh_authorized_key` resource of the user.
+#
+# [*type*]
+#   Set the type of the public key to be used to authenticated the reference user; if not not specified, the type will
+#   looked up from the `ssh_autorized_key` resource of the user.
 #
 # === Authors
 #
@@ -19,7 +27,12 @@
 #
 # Copyright 2013 Martin Meinhold, unless otherwise noted.
 #
-define githosting::authorized_user($ensure = present, $username = $title) {
+define githosting::authorized_user(
+  $ensure   = present,
+  $username = $title,
+  $key      = undef,
+  $type     = undef
+) {
   if $ensure !~ /^present|absent$/ {
     fail("Githosting::Authorized_User[${title}]: ensure must be either present or absent, got '${ensure}'")
   }
@@ -29,13 +42,19 @@ define githosting::authorized_user($ensure = present, $username = $title) {
 
   include githosting
 
-  $key = getparam(Ssh_authorized_key[$username], 'key')
-  $type = getparam(Ssh_authorized_key[$username], 'type')
+  $real_key = empty($key) ? {
+    true    => getparam(Ssh_authorized_key[$username], 'key'),
+    default => $key,
+  }
+  $real_type = empty($type) ? {
+    true    => getparam(Ssh_authorized_key[$username], 'type'),
+    default => $type,
+  }
 
   ssh_authorized_key { "githosting_${username}":
     ensure  => $ensure,
-    key     => $key,
-    type    => $type,
+    key     => $real_key,
+    type    => $real_type,
     user    => $githosting::service_name,
     require => Ssh_authorized_key[$username],
   }
