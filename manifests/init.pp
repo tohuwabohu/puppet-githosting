@@ -93,10 +93,16 @@ class githosting (
     ensure => $git_package_ensure,
   }
 
-  user { $githosting::service_name:
+  group { $service_name:
+    ensure => present,
+    gid    => $service_gid,
+    system => true,
+  }
+
+  user { $service_name:
     ensure     => $ensure,
     uid        => $service_uid,
-    gid        => $service_gid,
+    gid        => $service_name,
     home       => $data_dir,
     shell      => $service_shell,
     managehome => true,
