@@ -56,6 +56,5 @@ define githosting::authorized_user(
     key     => $real_key,
     type    => $real_type,
     user    => $githosting::service_name,
-    require => Ssh_authorized_key[$username],
   }
 }
