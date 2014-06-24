@@ -8,7 +8,7 @@ describe 'githosting::repository' do
     specify { should contain_vcsrepo(repo).with(
         'ensure'   => 'bare',
         'provider' => 'git',
-        'user'     => 'git',
+        'user'     => 'git'
       )
     }
   end
