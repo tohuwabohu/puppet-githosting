@@ -27,12 +27,6 @@ describe 'githosting' do
     specify { should contain_package('git').with_ensure('1.2.3') }
   end
 
-  describe 'uses custom git executable' do
-    let(:params) { {:git_executable => '/somewhere/else/git', :repositories => ['foobar']} }
-
-    specify { should contain_exec('/somewhere/else/git init --bare /var/git/foobar.git') }
-  end
-
   describe 'creates custom user' do
     let(:params) { {:service_name => 'foobar'} }
 

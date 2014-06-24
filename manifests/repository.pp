@@ -23,21 +23,14 @@ define githosting::repository($repository = $title, $ensure = present) {
   include githosting
 
   $repository_dir = "${githosting::data_dir}/${repository}.git"
-
-  if $ensure == present {
-    exec { "${githosting::git_executable} init --bare ${repository_dir}":
-      user    => $githosting::service_name,
-      creates => "${repository_dir}/HEAD",
-      require => User[$githosting::service_name],
-    }
+  $repository_ensure = $ensure ? {
+    absent  => absent,
+    default => bare,
   }
-  else {
-    file { $repository_dir:
-      ensure  => absent,
-      backup  => false,
-      recurse => true,
-      purge   => true,
-      force   => true,
-    }
+
+  vcsrepo { $repository_dir:
+    ensure   => $repository_ensure,
+    provider => git,
+    user     => $githosting::service_name,
   }
 }
