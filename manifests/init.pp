@@ -16,10 +16,6 @@
 #   The state the git package should be in.
 #   default: latest
 #
-# [*git_executable*]
-#   Sets the path to the git executable.
-#   default: /usr/bin/git
-#
 # [*service_name*]
 #   The name of the user owning all repositories.
 #   default: git
@@ -61,7 +57,6 @@ class githosting (
   $ensure             = params_lookup('ensure'),
   $git_package_ensure = params_lookup('git_package_ensure'),
   $git_package_name   = params_lookup('git_package_name'),
-  $git_executable     = params_lookup('git_executable'),
   $service_name       = params_lookup('service_name'),
   $service_uid        = params_lookup('service_uid'),
   $service_gid        = params_lookup('service_gid'),
@@ -80,7 +75,6 @@ class githosting (
   if empty($git_package_name) {
     fail('Class[Githosting]: git_package_name must not be empty')
   }
-  validate_absolute_path($git_executable)
   if empty($service_name) {
     fail('Class[Githosting]: service_name must not be empty')
   }

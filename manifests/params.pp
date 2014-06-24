@@ -17,9 +17,6 @@ class githosting::params {
   $git_package_name = $::operatingssytem ? {
     default => 'git'
   }
-  $git_executable = $::operatingsystem ? {
-    default => '/usr/bin/git'
-  }
 
   $service_name = 'git'
   $service_uid = undef
