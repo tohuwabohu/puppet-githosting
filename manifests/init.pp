@@ -54,16 +54,16 @@
 # Copyright 2013 Martin Meinhold
 #
 class githosting (
-  $ensure             = params_lookup('ensure'),
-  $git_package_ensure = params_lookup('git_package_ensure'),
-  $git_package_name   = params_lookup('git_package_name'),
-  $service_name       = params_lookup('service_name'),
-  $service_uid        = params_lookup('service_uid'),
-  $service_gid        = params_lookup('service_gid'),
-  $service_shell      = params_lookup('service_shell'),
-  $data_dir           = params_lookup('data_dir'),
-  $authorized_users   = params_lookup('authorized_users'),
-  $repositories       = params_lookup('repositories'),
+  $ensure             = $githosting::params::ensure,
+  $git_package_ensure = $githosting::params::git_package_ensure,
+  $git_package_name   = $githosting::params::git_package_name,
+  $service_name       = $githosting::params::service_name,
+  $service_uid        = $githosting::params::service_uid,
+  $service_gid        = $githosting::params::service_gid,
+  $service_shell      = $githosting::params::service_shell,
+  $data_dir           = $githosting::params::data_dir,
+  $authorized_users   = $githosting::params::authorized_users,
+  $repositories       = $githosting::params::repositories,
 ) inherits githosting::params {
 
   if $ensure !~ /^present|absent$/ {
